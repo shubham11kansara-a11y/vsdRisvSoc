@@ -42,6 +42,7 @@ This repository documents the full setup process, code, and verification steps f
 sudo apt-get install -y git vim autoconf automake autotools-dev curl \
 libmpc-dev libmpfr-dev libgmp-dev gawk build-essential bison flex \
 texinfo gperf libtool patchutils bc zlib1g-dev libexpat1-dev gtkwave
+```
 
 ---
 
@@ -52,6 +53,7 @@ cd
 pwd=$PWD
 mkdir -p riscv_toolchain
 cd riscv_toolchain
+```
 
 ---
 
@@ -60,6 +62,7 @@ cd riscv_toolchain
 ```bash
 wget https://static.dev.sifive.com/dev-tools/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14.tar.gz
 tar -xvzf riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14.tar.gz
+```
 
 ---
 
@@ -67,10 +70,12 @@ tar -xvzf riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14.tar.gz
 For current shell:
 ```bash
 export PATH=$pwd/riscv_toolchain/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14/bin:$PATH
+```
 For future shells (persistent):
 ```bash
 echo 'export PATH=$HOME/riscv_toolchain/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14/bin:$PATH' >> ~/.bashrc
 source ~/.bashrc
+```
 If libncurses.so.5 is missing:
 ```bash
 cd /tmp
@@ -78,14 +83,14 @@ wget http://archive.ubuntu.com/ubuntu/pool/universe/n/ncurses/libtinfo5_6.3-2ubu
 wget http://archive.ubuntu.com/ubuntu/pool/universe/n/ncurses/libncurses5_6.3-2ubuntu0.1_amd64.deb
 sudo dpkg -i libtinfo5_6.3-2ubuntu0.1_amd64.deb
 sudo dpkg -i libncurses5_6.3-2ubuntu0.1_amd64.deb
-
+```
 
 ---
 
 ## ✅ 5. Install Device Tree Compiler
 ```bash
 sudo apt-get install -y device-tree-compiler
-
+```
 ---
 
 ## ✅ 6. Build Spike (ISA Simulator)
@@ -96,7 +101,7 @@ mkdir build && cd build
 ../configure --prefix=$pwd/riscv_toolchain/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14
 make -j$(nproc)
 sudo make install
-
+```
 ---
 
 ## ✅ 7. Build Proxy Kernel (pk)
@@ -108,7 +113,7 @@ mkdir build && cd build
 ../configure --prefix=$pwd/riscv_toolchain/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14 --host=riscv64-unknown-elf
 make -j$(nproc)
 sudo make install
-
+```
 ---
 
 ## ✅8. Add RISC-V Bin Directory to PATH
@@ -116,7 +121,7 @@ sudo make install
 export PATH=$pwd/riscv_toolchain/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14/riscv64-unknown-elf/bin:$PATH
 echo 'export PATH=$HOME/riscv_toolchain/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14/riscv64-unknown-elf/bin:$PATH' >> ~/.bashrc
 source ~/.bashrc
-
+```
 ---
 
 ## ✅9. Optional – Install Icarus Verilog
@@ -131,7 +136,7 @@ chmod +x autoconf.sh
 ./configure
 make -j$(nproc)
 sudo make install
-
+```
 ---
 
 ## ✅10. Sanity Checks
@@ -141,7 +146,7 @@ riscv64-unknown-elf-gcc -v
 which spike
 spike --version
 which pk
-
+```
 ---
 
 ## ✅11. Compile & Run Unique Test
@@ -197,7 +202,7 @@ echo "Hostname: $(hostname -s)"
 riscv64-unknown-elf-gcc -O2 -Wall -march=rv64imac -mabi=lp64 \
 -DUSERNAME='"root"' -DHOSTNAME='"Manav"' \
 unique_test.c -o unique_test
-
+```
 ---
 
 ## ✅12. Final Output
@@ -206,7 +211,7 @@ User      : root
 Host      : Shubham
 Unique ID : 0x3d0289e4c5a1e2b7
 GCC Version String Length: 28
-
+```
 ---
 
 13. Conclusion
